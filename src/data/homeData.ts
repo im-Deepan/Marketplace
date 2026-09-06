@@ -1,3 +1,8 @@
+import plant from "@/assets/project-plant.jpg";
+import waste from "@/assets/project-waste.jpg";
+import winding from "@/assets/project-winding.jpg";
+import drone from "@/assets/project-drone.jpg";
+
 export type NavLink = { label: string; href: string };
 
 export const navLinks: NavLink[] = [
@@ -15,6 +20,7 @@ export type Project = {
   difficulty: string;
   cost: string;
   alt: string;
+  image: string;
 };
 
 export const projects: Project[] = [
@@ -25,6 +31,7 @@ export const projects: Project[] = [
     difficulty: "Beginner",
     cost: "₹2,500",
     alt: "Soil moisture sensor board wired to a potted plant",
+    image: plant,
   },
   {
     title: "AI Waste Classification",
@@ -33,6 +40,7 @@ export const projects: Project[] = [
     difficulty: "Intermediate",
     cost: "₹6,000",
     alt: "Conveyor sorting bin with a camera module above it",
+    image: waste,
   },
   {
     title: "Automatic Filament Winding System",
@@ -41,6 +49,7 @@ export const projects: Project[] = [
     difficulty: "Advanced",
     cost: "₹14,000",
     alt: "Rotating mandrel winding composite filament",
+    image: winding,
   },
   {
     title: "Drone-Based Tree Monitoring",
@@ -49,6 +58,7 @@ export const projects: Project[] = [
     difficulty: "Advanced",
     cost: "₹22,000",
     alt: "Quadcopter drone flying above a tree canopy",
+    image: drone,
   },
 ];
 
