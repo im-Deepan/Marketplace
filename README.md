@@ -97,6 +97,11 @@ React hooks for data fetching:
 - `useProjectById()` - Fetch single project
 - [View full documentation →](./IMPLEMENTATIONS.md#3-custom-hooks)
 
+#### **4. Common & Recovery Components** (`src/components/common/`)
+- **NotFoundView** (`src/components/common/NotFoundView.tsx`) - Custom 404 page featuring offline detection, retry triggers, and quick navigation back to projects, ideas, or builders.
+- **ErrorView** (`src/components/common/ErrorView.tsx`) - Comprehensive error boundary screen with offline diagnosis, connection auto-reconnect reload listener, and technical diagnostics.
+- **OfflineBanner** (`src/components/common/OfflineBanner.tsx`) - Persistent floating connectivity status banner alerting users when network connection drops and syncing when restored.
+
 ### Components
 
 #### **Home Page Components** (`src/components/home/`)

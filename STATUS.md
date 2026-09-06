@@ -57,6 +57,13 @@ Track the implementation progress of the ProjectHub marketplace application.
 - [x] SEO metadata via TanStack Router
 - **Status:** Complete refactor from monolithic to modular
 
+### Error Handling & Offline Recovery ✅
+- [x] Custom 404 NotFoundView with quick links and retry
+- [x] ErrorView with offline detection & automatic reconnection listener
+- [x] Floating OfflineBanner for continuous network monitoring
+- [x] SSR & fallback HTML error templates in `error-page.ts`
+- [x] Left-side mobile Sheet navigation drawer
+
 ### Documentation ✅
 - [x] IMPLEMENTATIONS.md (~700 lines)
 - [x] README.md updated (~400 lines)

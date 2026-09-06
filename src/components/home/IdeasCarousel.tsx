@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Project } from "@/types";
 import ProjectCard from "@/components/home/ProjectCard";
 import { ActionButton, SectionHeading } from "@/components/home/primitives";
+import { ArrowRight, Compass } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -34,18 +35,29 @@ const IdeasCarousel: FC<IdeasCarouselProps> = ({
   autoplayDelay = 15000,
   loading = false,
 }) => {
+  const [activeDomain, setActiveDomain] = useState<string | null>(null);
+
   const handleDomainClick = (domain: string) => (e: React.MouseEvent) => {
     e.preventDefault();
+    setActiveDomain(domain === activeDomain ? null : domain);
     onDomainClick?.(domain);
   };
+
+  const displayedProjects = activeDomain
+    ? projects.filter(
+        (p) =>
+          p.category.toLowerCase() === activeDomain.toLowerCase() ||
+          p.technology.toLowerCase().includes(activeDomain.toLowerCase()),
+      )
+    : projects;
 
   if (loading) {
     return (
       <section className="border-y border-border bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-5 py-20">
+        <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionHeading title={title} sub={subtitle} />
-          <div className="mt-10 h-20 animate-pulse rounded-full bg-muted" />
-          <div className="mt-12 h-64 animate-pulse rounded-xl bg-muted" />
+          <div className="mt-8 h-12 animate-pulse rounded-2xl bg-muted/60" />
+          <div className="mt-8 h-80 animate-pulse rounded-2xl bg-muted/60" />
         </div>
       </section>
     );
@@ -53,52 +65,78 @@ const IdeasCarousel: FC<IdeasCarouselProps> = ({
 
   return (
     <section className="border-y border-border bg-surface">
-      <div className="mx-auto w-full max-w-6xl px-5 py-20">
-        <SectionHeading title={title} sub={subtitle} />
+      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHeading title={title} sub={subtitle} />
+        </div>
 
         {/* Domain Tags */}
-        <div className="mt-10">
-          <h3 className="text-lg font-semibold mb-4">Explore by Domain</h3>
-          <ul className="flex flex-wrap gap-3">
-            {domains.map((domain) => (
-              <li key={domain}>
-                <button
-                  onClick={handleDomainClick(domain)}
-                  className="inline-flex rounded-full border border-border px-4 py-2 text-sm cursor-pointer transition-colors hover:border-accent hover:text-accent"
-                  type="button"
-                  aria-label={`Explore ${domain} domain`}
-                >
-                  {domain}
-                </button>
-              </li>
-            ))}
+        <div className="mt-8">
+          <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <Compass className="h-4 w-4 text-accent" />
+            <span>Filter by Domain</span>
+          </div>
+          <ul className="flex flex-wrap gap-2.5">
+            {domains.map((domain) => {
+              const active = activeDomain === domain;
+              return (
+                <li key={domain}>
+                  <button
+                    onClick={handleDomainClick(domain)}
+                    className={`inline-flex items-center rounded-xl px-4 py-2 text-xs font-semibold transition-all cursor-pointer ${
+                      active
+                        ? "bg-accent text-accent-contrast shadow-soft"
+                        : "border border-border bg-background text-muted-foreground hover:border-accent/40 hover:text-foreground"
+                    }`}
+                    type="button"
+                    aria-label={`Explore ${domain} domain`}
+                  >
+                    {domain}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
-        {/* Carousel */}
-        <div className="mt-12 px-12">
+        {/* Carousel Container with proper margins & padding */}
+        <div className="mt-10 px-4 sm:px-10">
           <Carousel
             plugins={[
               Autoplay({
                 delay: autoplayDelay,
+                stopOnInteraction: true,
               }),
             ]}
+            className="w-full"
           >
-            <CarouselContent>
-              {projects.map((project) => (
-                <CarouselItem key={project.id || project.title} className="basis-1/2 lg:basis-1/3">
+            <CarouselContent className="-ml-4 items-stretch">
+              {(displayedProjects.length > 0 ? displayedProjects : projects).map((project) => (
+                <CarouselItem
+                  key={project.id || project.title}
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3 flex h-full"
+                >
                   <ProjectCard project={project} onClick={onProjectClick} variant="carousel" />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden sm:inline-flex -left-4 md:-left-6" />
+            <CarouselNext className="hidden sm:inline-flex -right-4 md:-right-6" />
           </Carousel>
         </div>
 
-        <div className="mt-10">
-          <ActionButton variant="ghost" onClick={onBrowseAll}>
-            Browse All Ideas
+        {/* Action button */}
+        <div className="mt-10 flex items-center justify-between border-t border-border/60 pt-6">
+          <p className="text-xs font-medium text-muted-foreground">
+            Swipe or use arrows to discover {displayedProjects.length} ideas
+          </p>
+          <ActionButton
+            variant="ghost"
+            onClick={onBrowseAll}
+            className="inline-flex items-center gap-2 group"
+          >
+            <span>Browse All Ideas</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </ActionButton>
         </div>
       </div>

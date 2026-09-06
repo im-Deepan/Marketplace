@@ -1,0 +1,6 @@
+{
+  "name": "Marketplace",
+  "description": "Student Project Marketplace platform for discovering projects, exploring mechanical ideas, asking technical questions, and connecting with builders.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

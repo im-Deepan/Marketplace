@@ -15,15 +15,20 @@ export function useProjects(params?: PaginationParams) {
     error: null,
   });
 
+  const page = params?.page;
+  const limit = params?.limit;
+  const category = params?.category;
+  const search = params?.search;
+
   useEffect(() => {
     const fetchProjects = async () => {
       setState({ data: [], loading: true, error: null });
-      const projects = await projectService.getProjects(params);
+      const projects = await projectService.getProjects({ page, limit, category, search });
       setState({ data: projects, loading: false, error: null });
     };
 
     fetchProjects();
-  }, [params?.page, params?.limit, params?.category, params?.search]);
+  }, [page, limit, category, search]);
 
   return state;
 }
