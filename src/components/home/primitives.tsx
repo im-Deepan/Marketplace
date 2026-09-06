@@ -11,7 +11,8 @@ export function Reveal({
   className?: string;
   as?: "div" | "section" | "footer";
 } & React.HTMLAttributes<HTMLElement>) {
-
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
