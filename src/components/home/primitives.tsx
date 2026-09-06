@@ -5,13 +5,13 @@ export function Reveal({
   children,
   className,
   as: Tag = "div",
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
   as?: "div" | "section" | "footer";
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+} & React.HTMLAttributes<HTMLElement>) {
+
 
   useEffect(() => {
     const el = ref.current;
