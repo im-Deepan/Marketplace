@@ -31,7 +31,12 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag ref={ref as never} data-visible={visible} className={cn("reveal", className)}>
+    <Tag
+      ref={ref as never}
+      data-visible={visible}
+      className={cn("reveal", className)}
+      {...rest}
+    >
       {children}
     </Tag>
   );
