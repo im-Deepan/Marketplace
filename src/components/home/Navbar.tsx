@@ -62,7 +62,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface cursor-pointer lg:hidden"
           >
             {open ? (
               <X className="h-4 w-4" aria-hidden="true" />

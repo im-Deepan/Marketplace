@@ -31,12 +31,7 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag
-      ref={ref as never}
-      data-visible={visible}
-      className={cn("reveal", className)}
-      {...rest}
-    >
+    <Tag ref={ref as never} data-visible={visible} className={cn("reveal", className)} {...rest}>
       {children}
     </Tag>
   );
@@ -71,7 +66,7 @@ export function ActionButton({
     <button
       type="button"
       className={cn(
-        "inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-200 active:scale-[0.98]",
+        "inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-200 cursor-pointer active:scale-[0.98]",
         variant === "primary"
           ? "bg-accent text-accent-foreground shadow-soft hover:-translate-y-0.5 hover:shadow-lift"
           : "border border-border bg-surface text-foreground hover:border-accent",
